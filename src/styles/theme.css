@@ -1,0 +1,324 @@
+/* Good Bodies theme and layout.
+   Ported faithfully from the design prototype: dark, calm-clinical look with a
+   mint accent, a humanist sans for text and a mono for small labels.
+   Tailwind v4 is available via the import below; the bespoke components below
+   use CSS variables so the look matches the prototype exactly. */
+@import 'tailwindcss';
+
+/* Make the design tokens available to Tailwind utilities too (v4 @theme). */
+@theme {
+  --color-bg: #14161a;
+  --color-surface: #1b1e23;
+  --color-accent: #5fbf9b;
+  --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+:root {
+  --bg: #14161a;
+  --surface: #1b1e23;
+  --surface-2: #23272d;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #e9ebe7;
+  --text-dim: #9aa39f;
+  --text-faint: #6b736f;
+  --accent: #5fbf9b;
+  --on-accent: #0e1512;
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --accent-line: color-mix(in oklab, var(--accent) 30%, var(--line));
+  --amber: #d9a441;
+  --amber-soft: color-mix(in oklab, #d9a441 16%, transparent);
+  --coral: #e08a6a;
+  --coral-line: color-mix(in oklab, #e08a6a 28%, var(--line));
+  --radius: 18px;
+  --font: 'Hanken Grotesk', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #eef1ee;
+  --surface: #ffffff;
+  --surface-2: #f1f4f1;
+  --line: rgba(22, 30, 26, 0.1);
+  --text: #181d1b;
+  --text-dim: #586059;
+  --text-faint: #8a928d;
+  --on-accent: #0e1512;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---- Layout ------------------------------------------------------------- */
+.gb-app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+}
+.gb-rail {
+  display: none;
+}
+.gb-main {
+  flex: 1;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.gb-col {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 26px 18px calc(96px + env(safe-area-inset-bottom));
+}
+.gb-screen {
+  animation: gbfade 0.35s ease both;
+}
+
+/* ---- Mobile bottom nav -------------------------------------------------- */
+.gb-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+  background: color-mix(in oklab, var(--bg) 84%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-top: 1px solid var(--line);
+}
+.gb-tabbtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  color: var(--text-faint);
+  font-family: var(--font);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 12px;
+  transition: color 0.2s ease;
+}
+.gb-tabbtn.is-on {
+  color: var(--accent);
+}
+
+/* ---- Desktop rail ------------------------------------------------------- */
+@media (min-width: 760px) {
+  .gb-rail {
+    display: flex;
+    flex-direction: column;
+    width: 244px;
+    flex-shrink: 0;
+    height: 100vh;
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    border-right: 1px solid var(--line);
+    padding: 26px 18px;
+    background: color-mix(in oklab, var(--bg) 60%, var(--surface));
+  }
+  .gb-bottom {
+    display: none;
+  }
+  .gb-col {
+    padding: 42px 34px 56px;
+  }
+}
+.gb-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 4px 8px 26px;
+}
+.gb-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+}
+.gb-brand-name {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+.gb-rail-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.gb-navitem {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: left;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+.gb-navitem:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.gb-navitem.is-on {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.gb-rail-foot {
+  padding: 16px 10px 4px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---- Primitives --------------------------------------------------------- */
+.gb-card {
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.12s ease;
+}
+.gb-card.gb-tap:hover {
+  border-color: var(--accent-line);
+}
+.gb-iconbtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.gb-iconbtn:hover {
+  color: var(--accent);
+}
+.gb-tap {
+  transition: transform 0.1s ease;
+}
+.gb-tap:active {
+  transform: scale(0.96);
+}
+.gb-btn {
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+}
+.gb-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+/* Visible keyboard focus ring for accessibility. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@keyframes gbfade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.gb-fade {
+  animation: gbfade 0.3s ease both;
+}
+
+/* ---- Scrollbar ---------------------------------------------------------- */
+.gb-main::-webkit-scrollbar {
+  width: 10px;
+}
+.gb-main::-webkit-scrollbar-thumb {
+  background: var(--surface-2);
+  border-radius: 99px;
+  border: 3px solid var(--bg);
+}
+.gb-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* A small spinner used on loading screens. */
+.gb-spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--surface-2);
+  border-top-color: var(--accent);
+  animation: gbspin 0.8s linear infinite;
+}
+@keyframes gbspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
