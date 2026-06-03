@@ -23,19 +23,53 @@ const SLEEP_GAP_MS = 90 * 1000;
 // What the browser tab says when you are over your interval and not looking.
 const OVER_TITLE = '\u{1F514} Time to move · Good Bodies';
 
+/** True if this browser supports the Notifications API. */
+export function notificationsSupported(): boolean {
+  return typeof window !== 'undefined' && 'Notification' in window;
+}
+
+/** Ask for notification permission. Returns the resulting permission state. */
+export async function requestNotificationPermission(): Promise<NotificationPermission> {
+  if (!notificationsSupported()) {
+    return 'denied';
+  }
+  if (Notification.permission !== 'default') {
+    return Notification.permission;
+  }
+  return Notification.requestPermission();
+}
+
+/** Show a single, calm "time to move" notification (best effort). */
+function notifyTimeToMove(): void {
+  if (!notificationsSupported() || Notification.permission !== 'granted') {
+    return;
+  }
+  try {
+    new Notification('Time to move', {
+      body: 'You have been sitting a while. Stand, stretch, or take a quick lap.',
+      icon: '/favicon.svg',
+      tag: 'good-bodies-move', // collapse repeats into one
+    });
+  } catch {
+    // Some browsers throw if notifications are constructed without a SW; ignore.
+  }
+}
+
 export function useMoveReminder(settings: UserSettings | undefined): void {
   const markMoved = useMarkMoved();
   const mark = markMoved.mutate;
   const ready = settings !== undefined;
 
   // Latest values live in a ref so the single interval never re-subscribes.
-  const stateRef = useRef({ intervalSec: 1800, lastMovedMs: Date.now() });
+  const stateRef = useRef({ intervalSec: 1800, lastMovedMs: Date.now(), remindersEnabled: false });
   stateRef.current.intervalSec = (settings?.reminderIntervalMinutes ?? 30) * 60;
   stateRef.current.lastMovedMs = settings ? new Date(settings.lastMovedAt).getTime() : Date.now();
+  stateRef.current.remindersEnabled = settings?.remindersEnabled ?? false;
 
   const hiddenAtRef = useRef<number | null>(null);
   const lastTickRef = useRef<number>(Date.now());
   const baseTitleRef = useRef<string | null>(null);
+  const wasOverRef = useRef(false);
 
   useEffect(() => {
     if (!ready) {
@@ -73,10 +107,17 @@ export function useMoveReminder(settings: UserSettings | undefined): void {
         return;
       }
 
+      const { intervalSec, lastMovedMs, remindersEnabled } = stateRef.current;
+      const over = (now - lastMovedMs) / 1000 >= intervalSec;
+
+      // Fire one gentle notification on the moment you cross the interval.
+      if (over && !wasOverRef.current && remindersEnabled) {
+        notifyTimeToMove();
+      }
+      wasOverRef.current = over;
+
       // Reflect "time to move" in the tab title, but only while you are away
       // from this tab (otherwise the on-screen card already tells you).
-      const { intervalSec, lastMovedMs } = stateRef.current;
-      const over = (now - lastMovedMs) / 1000 >= intervalSec;
       const base = baseTitleRef.current ?? 'Good Bodies';
       const wantTitle = over && document.hidden ? OVER_TITLE : base;
       if (document.title !== wantTitle) {

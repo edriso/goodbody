@@ -112,6 +112,8 @@ export interface UserSettings {
   accent: string;
   /** The last time the user moved. Powers the sitting timer. */
   lastMovedAt: string;
+  /** Opt-in browser notifications when the sitting interval is exceeded. */
+  remindersEnabled: boolean;
 }
 
 /** A partial settings update; change one field or several. */
@@ -119,6 +121,7 @@ export interface UpdateSettingsInput {
   reminderIntervalMinutes?: number;
   theme?: 'dark' | 'light';
   accent?: string;
+  remindersEnabled?: boolean;
 }
 
 // ---- Static content --------------------------------------------------------

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { Icon } from '@/components/icon';
@@ -8,6 +9,7 @@ import { SectionLabel } from '@/components/section-label';
 import { useContent } from '@/hooks/use-content';
 import { useErgonomics, useSetErgonomicsItem } from '@/hooks/use-ergonomics';
 import { useMarkMoved, useSettings, useUpdateSettings } from '@/hooks/use-settings';
+import { notificationsSupported, requestNotificationPermission } from '@/hooks/use-move-reminder';
 
 const REMINDER_OPTIONS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
@@ -18,6 +20,27 @@ export function SetupScreen() {
   const settingsQuery = useSettings();
   const updateSettings = useUpdateSettings();
   const markMoved = useMarkMoved();
+  const [reminderHint, setReminderHint] = useState('');
+
+  const toggleReminders = async (enabled: boolean) => {
+    if (!enabled) {
+      updateSettings.mutate({ remindersEnabled: false });
+      setReminderHint('');
+      return;
+    }
+    if (!notificationsSupported()) {
+      setReminderHint('Your browser does not support notifications.');
+      return;
+    }
+    const permission = await requestNotificationPermission();
+    if (permission === 'granted') {
+      updateSettings.mutate({ remindersEnabled: true });
+      setReminderHint('');
+    } else {
+      updateSettings.mutate({ remindersEnabled: false });
+      setReminderHint('Notifications are blocked. Allow them in your browser settings to use this.');
+    }
+  };
 
   if (ergonomicsQuery.isLoading || settingsQuery.isLoading) {
     return <Loading />;
@@ -185,6 +208,65 @@ export function SetupScreen() {
         <Button onClick={() => markMoved.mutate()} variant="soft" size="sm">
           Reset now
         </Button>
+      </Card>
+
+      {/* Notifications opt-in */}
+      <Card pad={18} style={{ marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span style={{ color: 'var(--accent)' }}>
+            <Icon name="clock" size={22} />
+          </span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 600, marginBottom: 2 }}>Remind me to move</div>
+            <p style={{ margin: 0, color: 'var(--text-dim)', fontSize: 13, lineHeight: 1.45 }}>
+              A gentle browser notification when you cross your sitting interval.
+            </p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={settings?.remindersEnabled ?? false}
+            aria-label="Remind me to move"
+            onClick={() => void toggleReminders(!(settings?.remindersEnabled ?? false))}
+            className="gb-tap"
+            style={{
+              flexShrink: 0,
+              width: 46,
+              height: 28,
+              borderRadius: 999,
+              border: '1px solid var(--line)',
+              cursor: 'pointer',
+              padding: 2,
+              background: settings?.remindersEnabled ? 'var(--accent)' : 'var(--surface-2)',
+              display: 'flex',
+              justifyContent: settings?.remindersEnabled ? 'flex-end' : 'flex-start',
+              alignItems: 'center',
+              transition: 'background .15s ease',
+            }}
+          >
+            <span
+              style={{
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                background: settings?.remindersEnabled ? 'var(--on-accent)' : 'var(--text-faint)',
+                display: 'block',
+              }}
+            />
+          </button>
+        </div>
+        {reminderHint && (
+          <p
+            style={{
+              margin: '12px 0 0',
+              color: 'var(--text-faint)',
+              fontSize: 12.5,
+              lineHeight: 1.45,
+            }}
+          >
+            {reminderHint}
+          </p>
+        )}
       </Card>
 
       {contentQuery.data && <SafetyNote safety={contentQuery.data.safety} expanded />}

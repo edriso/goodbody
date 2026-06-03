@@ -43,6 +43,7 @@ export function defaultSettings(): UserSettings {
     theme: 'dark',
     accent: '#5fbf9b',
     lastMovedAt: new Date().toISOString(),
+    remindersEnabled: false,
   };
 }
 
