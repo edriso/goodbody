@@ -53,7 +53,7 @@ export function TodayScreen() {
 
   const routines = routinesQuery.data ?? [];
   const streak = streakQuery.data;
-  const over = sit.elapsed >= sit.interval;
+  const over = sit.over;
   const ringValue = Math.min(sit.elapsed / sit.interval, 1);
   const suggested = routines.slice(0, 3);
   const tagline = contentQuery.data?.tagline ?? '';

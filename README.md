@@ -20,8 +20,20 @@ general guidance, not medical advice.
   that steps through each move with a countdown ring, play/pause, skip, and restart.
 - **Program** — a 6-week "Back Foundations" plan. Check off sessions and launch
   them straight into the player.
-- **Setup** — an ergonomics checklist with a computed setup score, plus your
-  move-reminder interval and the full safety note.
+- **Setup** — an ergonomics checklist with a computed setup score, your
+  move-reminder interval, an opt-in "remind me to move" notification, and the
+  full safety note.
+
+### About the sitting timer
+
+The timer is intentionally automatic — there is no "start" button, so sitting
+time accrues on its own (the evidence says to move roughly every 30 minutes).
+To stay honest it resets when you have clearly stepped away: if the tab is
+hidden or the machine sleeps for a while, that counts as a break. When you go
+over your interval the browser tab updates to say "time to move," and if you
+opt in on Setup, a gentle notification fires once. (Notifications only work
+while the app's tab is open in the background — a static site cannot wake you
+after the tab is closed.)
 
 ## Tech stack
 
@@ -38,7 +50,7 @@ Nothing leaves your browser. Everything is stored in `localStorage`:
 
 | Key                | What it holds                                   |
 | ------------------ | ----------------------------------------------- |
-| `gb:settings`      | reminder interval, theme, accent, `lastMovedAt` |
+| `gb:settings`      | reminder interval, theme, accent, `lastMovedAt`, reminders on/off |
 | `gb:movement-logs` | completion timestamps (used to compute streaks) |
 | `gb:program`       | the program sessions you have checked off       |
 | `gb:ergonomics`    | the checklist items you have ticked             |
