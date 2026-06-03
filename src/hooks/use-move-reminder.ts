@@ -46,7 +46,7 @@ function notifyTimeToMove(): void {
   }
   try {
     new Notification('Time to move', {
-      body: 'You have been sitting a while. Stand, stretch, or take a quick lap.',
+      body: 'You have been sitting a while. Stand up, stretch, or take a short walk.',
       icon: '/favicon.svg',
       tag: 'good-bodies-move', // collapse repeats into one
     });

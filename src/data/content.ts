@@ -65,7 +65,7 @@ const seedRoutines: SeedRoutine[] = [
     tag: 'Seated',
     estimatedMinutes: 3,
     blurb: 'A seated flow to undo a long sitting block. No standing up required.',
-    why: 'Prolonged static sitting loads spinal discs and stiffens muscles. A short mobility flow restores movement without leaving your chair.',
+    why: 'Sitting still for a long time puts stress on your spine and stiffens your muscles. A few easy moves get you going again without leaving your chair.',
     steps: [
       {
         name: 'Settle & breathe',
@@ -138,7 +138,7 @@ const seedRoutines: SeedRoutine[] = [
     tag: 'Standing',
     estimatedMinutes: 2,
     blurb: 'Get out of the chair. Open the front of the body that sitting keeps closed.',
-    why: 'Standing back extension and hip-flexor openers directly counter the flexed posture of sitting, recommended by AAOS for hourly relief.',
+    why: 'Standing tall and opening your hips undoes the hunched shape that sitting creates. The AAOS suggests a break like this once an hour.',
     steps: [
       {
         name: 'Stand & roll shoulders',
@@ -221,7 +221,7 @@ const seedRoutines: SeedRoutine[] = [
     tag: 'Floor · Strength',
     estimatedMinutes: 8,
     blurb: 'The strength base that supports your spine. Gentle, controlled, on the floor.',
-    why: 'A strong core supports the spine and cuts recurrence of low-back pain. These are the foundational motor-control moves used in NHS physiotherapy programs.',
+    why: 'A strong core supports your spine and helps stop back pain from coming back. These are the basic moves used in NHS physiotherapy programs.',
     steps: [
       {
         name: 'Get set',
@@ -315,7 +315,7 @@ const seedProgram: SeedProgram = {
       weekNumber: 1,
       theme: 'Wake it up',
       focus:
-        'Learn the foundational moves. Slow and pain-free, you are building motor control, not chasing a burn.',
+        'Learn the basic moves. Keep them slow and pain-free. You are teaching your body the movements, not trying to feel the burn.',
       sessions: [
         { dayLabel: 'Mon', routineSlug: 'core-foundations', note: 'Foundations, half the reps if new' },
         { dayLabel: 'Wed', routineSlug: 'stand-stretch', note: 'Mobility day' },
@@ -357,7 +357,7 @@ const seedProgram: SeedProgram = {
       weekNumber: 5,
       theme: 'Own it',
       focus:
-        'The routine should feel like yours now. Push the holds to a strong-but-comfortable end range.',
+        'The routine should feel like yours now. Hold each move as far as feels strong but still comfortable.',
       sessions: [
         { dayLabel: 'Mon', routineSlug: 'core-foundations', note: 'Longer holds' },
         { dayLabel: 'Wed', routineSlug: 'core-foundations', note: 'Add dead-bug round' },
@@ -457,11 +457,11 @@ export const ergonomicsGroupOrder = ['Chair', 'Screen', 'Arms & hands', 'Movemen
 
 // ---- Static copy -----------------------------------------------------------
 export const appContent: AppContent = {
-  tagline: 'Small steps for the body that ships the code.',
+  tagline: 'Small, easy steps to look after your body at your desk.',
   safety:
-    'Move within comfort. Mild discomfort (up to about 5 out of 10) during a stretch is normal, but stop if you feel sharp or shooting pain, and see a GP or physiotherapist if pain lasts beyond a few weeks. Staying gently active beats resting in bed. This app is general guidance, not medical advice.',
+    'Move within comfort. A little discomfort during a stretch is normal, but stop if you feel sharp or shooting pain, and see a doctor or physiotherapist if pain lasts more than a few weeks. Staying gently active is better than resting in bed. This app gives general advice, not medical advice.',
   facts: [
-    'Sitting more than 5 hours a day raises the odds of a back-pain flare. Movement is the antidote.',
+    'Sitting more than 5 hours a day makes back pain more likely. Moving is the simple fix.',
     'The best posture is your next posture. Changing position often matters more than any single "perfect" pose.',
     'Up to 8 in 10 people get back pain at some point. It is common, rarely serious, and usually eases within weeks.',
     'Exercise can cut the chance of back pain coming back by nearly half.',

@@ -136,7 +136,7 @@ export function TodayScreen() {
                 marginBottom: 4,
               }}
             >
-              {over ? "You've been still a while." : 'On a healthy rhythm.'}
+              {over ? "You've been sitting a while." : 'Nice and steady.'}
             </div>
             <p
               style={{
@@ -148,8 +148,8 @@ export function TodayScreen() {
               }}
             >
               {over
-                ? 'Stand, stretch, or take a lap. Your next reset clears the clock.'
-                : `Next nudge in ${formatMinutes(Math.max(sit.interval - sit.elapsed, 0))}. The best posture is your next one.`}
+                ? 'Stand up, stretch, or take a short walk. Moving resets the timer.'
+                : `Next reminder in ${formatMinutes(Math.max(sit.interval - sit.elapsed, 0))}. The best posture is your next one.`}
             </p>
           </div>
         </div>

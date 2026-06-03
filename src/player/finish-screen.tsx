@@ -49,8 +49,8 @@ export function FinishScreen({ routine, onClose, onRestart }: FinishScreenProps)
           textWrap: 'pretty',
         }}
       >
-        That is <strong style={{ color: 'var(--text)' }}>{routine.title}</strong> done and logged.
-        Your back thanks you, that is another brick in the wall against stiffness.
+        That is <strong style={{ color: 'var(--text)' }}>{routine.title}</strong> done and saved.
+        Your back thanks you. That is one more step toward feeling looser and stronger.
       </p>
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
         <Button onClick={onClose} variant="primary" size="lg" icon="check">

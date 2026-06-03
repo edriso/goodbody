@@ -60,7 +60,7 @@ export function SetupScreen() {
 
   const headline =
     ergonomics.score === 100
-      ? 'Dialled in.'
+      ? 'All set.'
       : ergonomics.score >= 60
         ? 'Looking good.'
         : 'Room to improve.';
