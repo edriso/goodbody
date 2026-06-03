@@ -1,4 +1,4 @@
-# Good Bodies
+# Good Body
 
 A calm, evidence-based web app that helps desk workers take care of their back
 and body in small, easy daily steps. It tracks how long you have been sitting
@@ -75,7 +75,7 @@ Deploys as a static SPA (see `netlify.toml`).
 
 ## Health disclaimer
 
-Good Bodies gives general, evidence-based guidance. It is not medical advice.
+Good Body gives general, evidence-based guidance. It is not medical advice.
 Move within comfort. Mild discomfort during a stretch is normal, but stop if you
 feel sharp or shooting pain, and see a GP or physiotherapist if pain lasts more
 than a few weeks.

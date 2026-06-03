@@ -21,7 +21,7 @@ const AWAY_RESET_MS = 10 * 60 * 1000;
 // the machine slept; treat it the same as being away.
 const SLEEP_GAP_MS = 90 * 1000;
 // What the browser tab says when you are over your interval and not looking.
-const OVER_TITLE = '\u{1F514} Time to move · Good Bodies';
+const OVER_TITLE = '\u{1F514} Time to move · Good Body';
 
 /** True if this browser supports the Notifications API. */
 export function notificationsSupported(): boolean {
@@ -118,7 +118,7 @@ export function useMoveReminder(settings: UserSettings | undefined): void {
 
       // Reflect "time to move" in the tab title, but only while you are away
       // from this tab (otherwise the on-screen card already tells you).
-      const base = baseTitleRef.current ?? 'Good Bodies';
+      const base = baseTitleRef.current ?? 'Good Body';
       const wantTitle = over && document.hidden ? OVER_TITLE : base;
       if (document.title !== wantTitle) {
         document.title = wantTitle;

@@ -1,9 +1,9 @@
 {
-  "name": "goodbodies",
+  "name": "goodbody",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Good Bodies: a calm, evidence-based frontend app that helps desk workers care for their back and body in small daily steps. Runs entirely in the browser.",
+  "description": "Good Body: a calm, evidence-based frontend app that helps desk workers care for their back and body in small daily steps. Runs entirely in the browser.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

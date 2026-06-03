@@ -36,7 +36,7 @@ export function AppLayout() {
           <span className="gb-logo">
             <Icon name="leaf" size={20} />
           </span>
-          <span className="gb-brand-name">Good Bodies</span>
+          <span className="gb-brand-name">Good Body</span>
         </div>
         <div className="gb-rail-items">
           {NAV.map((item) => (

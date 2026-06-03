@@ -1,4 +1,4 @@
-# Static SPA build for the Good Bodies frontend app.
+# Static SPA build for the Good Body frontend app.
 [build]
   command = "npm run build"
   publish = "dist"

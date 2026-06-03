@@ -1,5 +1,5 @@
 /*
- * Good Bodies content, bundled into the frontend.
+ * Good Body content, bundled into the frontend.
  *
  * In the full-stack app this lived in the database (routines + program, loaded
  * by the Prisma seed) and in the API code (ergonomics checklist, health facts).
