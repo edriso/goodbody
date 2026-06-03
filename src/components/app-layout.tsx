@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useSettings } from '@/hooks/use-settings';
 import { useApplyTheme } from '@/hooks/use-apply-theme';
+import { useMoveReminder } from '@/hooks/use-move-reminder';
 import { Player } from '@/player/player';
 import { Icon, type IconName } from './icon';
 
@@ -25,6 +26,7 @@ const NAV: NavItem[] = [
 export function AppLayout() {
   const { data: settings } = useSettings();
   useApplyTheme(settings);
+  useMoveReminder(settings);
 
   return (
     <div className="gb-app">

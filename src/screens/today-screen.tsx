@@ -122,7 +122,7 @@ export function TodayScreen() {
               </div>
             </div>
           </Ring>
-          <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ flex: 1, minWidth: 0 }} role="status" aria-live="polite">
             <Tag tone={over ? 'amber' : 'accent'} style={{ marginBottom: 10 }}>
               <Icon name="clock" size={12} />
               {over ? 'time to move' : 'sitting timer'}
