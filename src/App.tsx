@@ -10,7 +10,7 @@ import { SetupScreen } from '@/screens/setup-screen';
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<TodayScreen />} />
